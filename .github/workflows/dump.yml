@@ -12,6 +12,9 @@ jobs:
         env:
           GITHUB_CONTEXT: ${{ toJSON(github) }}
         run: echo "$GITHUB_CONTEXT"
+      - name: Check for is this a fork
+        if: {{ github.event.pull_request.head.repo.fork }}
+        run: echo "This workflow was started by a fork"
       - id: addenv
         name: Add something to env
         run: |
