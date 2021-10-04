@@ -9,12 +9,12 @@ on:
 jobs:
   one:
     runs-on: ubuntu-latest
-    outputs:
-      myenv: ${{ steps.addenv.outputs.myenv }}
+    env:
+      USER_INPUT: ${{ github.event.inputs.userinput }}
     steps:
       - name: Google Chat Notification
         uses: Co-qn/google-chat-notification@releases/v1
         with:
-          name: ${{ github.event.inputs.userinput }}
+          name: $USER_INPUT
           url: ${{ secrets.GOOGLE_CHAT_WEBHOOK }}
           status: ${{ job.status }}
