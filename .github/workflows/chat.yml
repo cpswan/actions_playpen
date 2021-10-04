@@ -1,10 +1,10 @@
 on:
   workflow_dispatch:
     inputs:
-    userinput:
-      description: 'Type something here'
-      required: true
-      default: 'The quick brown fox jumps over the lazy dog!'
+      userinput:
+        description: 'Type something here'
+        required: true
+        default: 'The quick brown fox jumps over the lazy dog!'
 
 jobs:
   one:
@@ -17,4 +17,4 @@ jobs:
         with:
           name: Build
           url: ${{ secrets.GOOGLE_CHAT_WEBHOOK }}
-          status: Sample text, input ${{ github.event.inputs.userinput }}, status ${{ job.status }} 
+          status: ${{ github.event.inputs.userinput }}
