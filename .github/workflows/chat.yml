@@ -1,0 +1,20 @@
+on:
+  workflow_dispatch:
+    inputs:
+    userinput:
+      description: 'Type something here'
+      required: true
+      default: 'The quick brown fox jumps over the lazy dog!'
+
+jobs:
+  one:
+    runs-on: ubuntu-latest
+    outputs:
+      myenv: ${{ steps.addenv.outputs.myenv }}
+    steps:
+      - name: Google Chat Notification
+        uses: Co-qn/google-chat-notification@releases/v1
+        with:
+          name: Build
+          url: ${{ secrets.GOOGLE_CHAT_WEBHOOK }}
+          status: Sample text, input ${{ github.event.inputs.userinput }}, status ${{ job.status }} 
