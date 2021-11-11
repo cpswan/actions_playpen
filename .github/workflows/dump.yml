@@ -79,5 +79,5 @@ jobs:
           echo "VERSION=${GITHUB_REF##*/}" >> $GITHUB_ENV
           echo ${GITHUB_REF##*/}
           echo ${GITHUB_REF#refs/tags/}
-          echo ${{ github.ref#refs/tags/ }}
+          echo ${{ github.ref }}
     
