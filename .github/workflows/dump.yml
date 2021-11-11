@@ -1,6 +1,10 @@
 on:
   workflow_dispatch:
   pull_request:
+  push:
+    tags:
+      - 'v*.*.*'
+      - 'c*.*.*'
 
 jobs:
   one:
@@ -66,5 +70,14 @@ jobs:
         run: echo "$JOB_CONTEXT"
       - name: Dump job one myenv
         run: echo "Job one MYENV is ${{ needs.one.outputs.myenv }}"
-        
-
+  tags:
+    if: ${{ contains(github.ref, 'refs/tags/v') || contains(github.ref, 'refs/tags/c') }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Output the tag
+        run: |
+          echo "VERSION=${GITHUB_REF##*/}" >> $GITHUB_ENV
+          echo ${GITHUB_REF##*/}
+          echo ${GITHUB_REF#refs/tags/}
+          echo ${{ github.ref#refs/tags/ }}
+    
